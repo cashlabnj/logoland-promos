@@ -1,0 +1,57 @@
+<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Define gradients for depth -->
+  <defs>
+    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#16a34a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d9448;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="flagGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Shield shape with rounded bottom -->
+  <path d="M 12 8 L 12 20 C 12 28 18 34 24 36 C 30 34 36 28 36 20 L 36 8 Z"
+        fill="url(#shieldGradient)"
+        stroke="#0d9448"
+        stroke-width="0.5"/>
+
+  <!-- Shield border highlight for depth -->
+  <path d="M 13 9 L 13 20 C 13 27 18.5 32.5 24 34.5 C 29.5 32.5 35 27 35 20 L 35 9"
+        fill="none"
+        stroke="#2dd4bf"
+        stroke-width="0.4"
+        opacity="0.5"/>
+
+  <!-- Stylized "L" inside shield -->
+  <g>
+    <!-- Vertical bar of L -->
+    <rect x="20" y="12" width="2.5" height="18" fill="#ffffff" rx="1"/>
+    <!-- Horizontal bar of L -->
+    <rect x="20" y="28" width="8" height="2.5" fill="#ffffff" rx="1"/>
+  </g>
+
+  <!-- Flag/banner coming off the L -->
+  <g>
+    <!-- Flag pole connection -->
+    <line x1="28" y1="14" x2="28" y2="20" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Flag shape -->
+    <path d="M 28 14 L 35 11 L 35 18 Z" fill="url(#flagGradient)" stroke="#f59e0b" stroke-width="0.5"/>
+    <!-- Flag accent line -->
+    <line x1="28" y1="14" x2="35" y2="14.5" stroke="#ffffff" stroke-width="0.5" opacity="0.6"/>
+  </g>
+
+  <!-- Text: LOGOLAND -->
+  <text x="44" y="22" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#16a34a" letter-spacing="0.5">
+    LOGOLAND
+  </text>
+
+  <!-- Text: PROMOS -->
+  <text x="44" y="36" font-family="Arial, sans-serif" font-size="9" font-weight="300" fill="#f59e0b" letter-spacing="1">
+    PROMOS
+  </text>
+
+  <!-- Decorative accent line -->
+  <line x1="44" y1="24" x2="75" y2="24" stroke="#f59e0b" stroke-width="1" opacity="0.6"/>
+</svg>

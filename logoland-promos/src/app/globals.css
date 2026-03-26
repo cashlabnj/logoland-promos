@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@layer base {
+  :root {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+  }
+
+  body {
+    @apply bg-dark-950 text-dark-100 antialiased;
+  }
+
+  * {
+    @apply border-dark-800;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-400 to-accent-400;
+  }
+
+  .glass {
+    @apply bg-dark-900/80 backdrop-blur-xl border border-dark-700/50;
+  }
+
+  .glass-card {
+    @apply bg-dark-900/60 backdrop-blur-lg border border-dark-700/40 rounded-2xl;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-lg hover:shadow-brand-500/20;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: rgba(22, 163, 74, 0.3);
+  color: white;
+}
