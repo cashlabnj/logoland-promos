@@ -135,27 +135,30 @@ export default function ProductDetailPage({ params }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
           {/* Left: Product Image */}
           <div className="flex flex-col gap-4">
-            <div className="glass-card overflow-hidden h-96 flex items-center justify-center">
-              <div className={cn(
-                "w-64 h-64 rounded-lg flex items-center justify-center text-center text-2xl font-bold text-white",
-                product.category === "Apparel" && "bg-gradient-to-br from-brand-500 to-brand-700",
-                product.category === "Drinkware" && "bg-gradient-to-br from-accent-500 to-accent-700",
-                product.category === "Tech" && "bg-gradient-to-br from-brand-600 to-accent-400",
-                product.category === "Bags" && "bg-gradient-to-br from-dark-700 to-brand-600",
-                product.category === "Writing" && "bg-gradient-to-br from-accent-600 to-brand-500",
-                product.category === "Office" && "bg-gradient-to-br from-dark-600 to-dark-800",
-                product.category === "Outdoor" && "bg-gradient-to-br from-brand-400 to-dark-700",
-                product.category === "Wellness" && "bg-gradient-to-br from-brand-500 to-accent-500",
-              )}>
-                {product.name}
-              </div>
+            <div className="glass-card overflow-hidden h-96 flex items-center justify-center bg-white">
+              <img
+                src={product.imageUrl}
+                alt={product.name}
+                className="w-full h-full object-contain p-4"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  if (target.parentElement) {
+                    target.parentElement.className = "glass-card overflow-hidden h-96 flex items-center justify-center";
+                    target.parentElement.innerHTML = `<div class="w-64 h-64 rounded-lg flex items-center justify-center text-center text-xl font-bold text-white bg-gradient-to-br from-dark-700 to-dark-900 p-4">${product.name}</div>`;
+                  }
+                }}
+              />
             </div>
 
-            {/* Thumbnail placeholders */}
+            {/* Thumbnails */}
             <div className="grid grid-cols-4 gap-2">
-              {[...Array(4)].map((_, i) => (
+              <div className="glass-card h-20 overflow-hidden cursor-pointer border-2 border-brand-400">
+                <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
+              </div>
+              {[2, 3, 4].map((i) => (
                 <div key={i} className="glass-card h-20 flex items-center justify-center cursor-pointer hover:border-brand-500 transition-colors">
-                  <span className="text-xs text-dark-600">View {i + 1}</span>
+                  <span className="text-xs text-dark-600">View {i}</span>
                 </div>
               ))}
             </div>
@@ -462,20 +465,20 @@ export default function ProductDetailPage({ params }: Props) {
                   href={`/products/${related.id}`}
                   className="glass-card overflow-hidden hover-glow group"
                 >
-                  <div className="bg-gradient-to-br from-dark-800 to-dark-900 h-40 flex items-center justify-center">
-                    <div className={cn(
-                      "w-28 h-28 rounded-lg flex items-center justify-center text-center text-xs font-semibold text-white",
-                      related.category === "Apparel" && "bg-gradient-to-br from-brand-500 to-brand-700",
-                      related.category === "Drinkware" && "bg-gradient-to-br from-accent-500 to-accent-700",
-                      related.category === "Tech" && "bg-gradient-to-br from-brand-600 to-accent-400",
-                      related.category === "Bags" && "bg-gradient-to-br from-dark-700 to-brand-600",
-                      related.category === "Writing" && "bg-gradient-to-br from-accent-600 to-brand-500",
-                      related.category === "Office" && "bg-gradient-to-br from-dark-600 to-dark-800",
-                      related.category === "Outdoor" && "bg-gradient-to-br from-brand-400 to-dark-700",
-                      related.category === "Wellness" && "bg-gradient-to-br from-brand-500 to-accent-500",
-                    )}>
-                      {related.name}
-                    </div>
+                  <div className="bg-white h-40 overflow-hidden">
+                    <img
+                      src={related.imageUrl}
+                      alt={related.name}
+                      className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        if (target.parentElement) {
+                          target.parentElement.className = "bg-gradient-to-br from-dark-800 to-dark-900 h-40 flex items-center justify-center";
+                          target.parentElement.innerHTML = `<div class="w-28 h-28 rounded-lg flex items-center justify-center text-center text-xs font-semibold text-white bg-gradient-to-br from-dark-700 to-dark-900">${related.name}</div>`;
+                        }
+                      }}
+                    />
                   </div>
                   <div className="p-4">
                     <h3 className="font-semibold text-sm line-clamp-2 mb-2 group-hover:text-brand-400 transition-colors">

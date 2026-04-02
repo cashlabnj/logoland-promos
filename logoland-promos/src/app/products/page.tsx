@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -13,7 +14,7 @@ import type { Product } from "@/data/products";
 
 type SortOption = "featured" | "price-low" | "price-high" | "name" | "newest" | "rating";
 
-export default function ProductsPage() {
+function ProductsPageContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category") || "";
   const { addItem } = useCart();
@@ -413,21 +414,18 @@ export default function ProductsPage() {
                       className="glass-card overflow-hidden hover-glow group h-full flex flex-col"
                     >
                       {/* Product Image */}
-                      <div className="relative bg-gradient-to-br from-dark-800 to-dark-900 h-48 overflow-hidden">
+                      <div className="relative bg-dark-800 h-48 overflow-hidden">
                         <div className="w-full h-full flex items-center justify-center">
-                          <div className={cn(
-                            "w-32 h-32 rounded-lg flex items-center justify-center text-center text-sm font-semibold text-white",
-                            product.category === "Apparel" && "bg-gradient-to-br from-brand-500 to-brand-700",
-                            product.category === "Drinkware" && "bg-gradient-to-br from-accent-500 to-accent-700",
-                            product.category === "Tech" && "bg-gradient-to-br from-brand-600 to-accent-400",
-                            product.category === "Bags" && "bg-gradient-to-br from-dark-700 to-brand-600",
-                            product.category === "Writing" && "bg-gradient-to-br from-accent-600 to-brand-500",
-                            product.category === "Office" && "bg-gradient-to-br from-dark-600 to-dark-800",
-                            product.category === "Outdoor" && "bg-gradient-to-br from-brand-400 to-dark-700",
-                            product.category === "Wellness" && "bg-gradient-to-br from-brand-500 to-accent-500",
-                          )}>
-                            {product.name}
-                          </div>
+                          <img
+                            src={product.imageUrl}
+                            alt={product.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.style.display = 'none';
+                              target.parentElement!.innerHTML = `<div class="w-32 h-32 rounded-lg flex items-center justify-center text-center text-sm font-semibold text-white bg-gradient-to-br from-dark-700 to-dark-900">${product.name}</div>`;
+                            }}
+                          />
                         </div>
 
                         {/* Featured Badge */}
@@ -551,5 +549,13 @@ export default function ProductsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-dark-950 flex items-center justify-center"><div className="text-white text-lg">Loading products...</div></div>}>
+      <ProductsPageContent />
+    </Suspense>
   );
 }

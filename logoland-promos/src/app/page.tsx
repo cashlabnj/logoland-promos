@@ -249,14 +249,22 @@ export default function Home() {
                 key={product.id}
                 className="flex-shrink-0 w-72 group overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-white/5 to-white/0 hover:border-brand-400/50 transition-all duration-300 backdrop-blur-sm hover:backdrop-blur-md"
               >
-                {/* Product image placeholder with color */}
-                <div className={`relative h-48 flex items-center justify-center overflow-hidden bg-gradient-to-br ${
-                  index % 2 === 0
-                    ? 'from-brand-500/30 to-brand-600/20'
-                    : 'from-accent-500/30 to-accent-600/20'
-                }`}>
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark-900/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <ShoppingCart className="w-12 h-12 text-white/30 group-hover:text-white/50 transition-colors" />
+                {/* Product image */}
+                <div className="relative h-48 overflow-hidden bg-white">
+                  <img
+                    src={product.imageUrl}
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      if (target.parentElement) {
+                        target.parentElement.className = `relative h-48 flex items-center justify-center overflow-hidden bg-gradient-to-br ${index % 2 === 0 ? 'from-brand-500/30 to-brand-600/20' : 'from-accent-500/30 to-accent-600/20'}`;
+                        target.parentElement.innerHTML = `<div class="w-16 h-16 text-white/30"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg></div>`;
+                      }
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark-900/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
 
                 {/* Product info */}

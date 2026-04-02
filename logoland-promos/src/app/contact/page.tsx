@@ -3,12 +3,6 @@
 import { useState } from 'react';
 import { Phone, MapPin, Mail, Clock, MapPinIcon, ChevronDown } from 'lucide-react';
 
-export const metadata = {
-  title: 'Contact Logoland Promos | Get In Touch',
-  description:
-    'Contact our team for quotes, orders, or design help. Based in NYC, serving brands nationwide. Fast response time guaranteed.',
-};
-
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
